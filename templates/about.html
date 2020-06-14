@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block currentMenuItem %}
+<div class="main-navigation">
+	<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+	<ul class="menu">
+		<li class="menu-item "><a href="index.html">Home</a></li>
+		<li class="menu-item current-menu-item"><a href="about.html">About</a></li>
+		<li class="menu-item"><a href="review.html">Movie reviews</a></li>
+		<li class="menu-item"><a href="contact.html">Contact</a></li>
+	</ul> <!-- .menu -->
+
+
+</div> <!-- .main-navigation -->
+{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="page">
+		<div class="breadcrumbs">
+			<a href="index.html">Home</a>
+			<span>About us</span>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<figure><img src="/static/dummy/figure.jpg" width="60%" alt="figure image"></figure>
+			</div>
+			<div class="col-md-8">
+				<p class="leading">Movie Recommendation System</p>
+				<p>We recommend you the best move based on content and collaboration filtering.</p>
+				<p>Movie Recommendation System currently uses item-to-item collaborative filtering, which scales to
+					massive
+					data sets and produces high-quality recommendations in real time. This type of filtering
+					matches each of the user searched and rated items to similar items, then combines those
+					similar items into a recommendation list for the user</p>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-9">
+				<h2 class="section-title">Vision &amp; Misssion</h2>
+				<p>Simplify the searching process and provide you the best move to entertain </p>
+				<p>A content based recommender works with data that the user provides, either explicitly
+					movie ratings for the MovieLens dataset. Based on that data, a user profile is
+					generated, which is then used to make suggestions to the user.</p>
+
+			</div>
+			<div class="col-md-3">
+				<h2 class="section-title">Useful Links</h2>
+				<ul class="arrow">
+					<li><a href="#">ABC source</a></li>
+					<li><a href="#">XYZ source</a></li>
+					<li><a href="#">Hisotry source</a></li>
+
+				</ul>
+			</div>
+		</div> <!-- .row -->
+
+		<h2 class="section-title">Our Team</h2>
+		<div class="row">
+
+			<div class="col-md-3">
+				<div class="team">
+					<figure class="team-image"><img src="/static/dummy/person-1.jpg" alt=""></figure>
+					<h2 class="team-name"></h2>
+					<small class="team-title">Co-founder</small>
+					<div class="social-links">
+						<a href="" class="facebook"><i class="fa fa-facebook"></i></a>
+						<a href="" class="twitter"><i class="fa fa-twitter"></i></a>
+						<a href="" class="google-plus"><i class="fa fa-google-plus"></i></a>
+						<a href="" class="pinterest"><i class="fa fa-pinterest"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="team">
+					<figure class="team-image"><img src="/static/dummy/person-2.jpg" alt=""></figure>
+					<h2 class="team-name"></h2>
+					<small class="team-title">Managing Director</small>
+					<div class="social-links">
+						<a href="" class="facebook"><i class="fa fa-facebook"></i></a>
+						<a href="" class="twitter"><i class="fa fa-twitter"></i></a>
+						<a href="" class="google-plus"><i class="fa fa-google-plus"></i></a>
+						<a href="" class="pinterest"><i class="fa fa-pinterest"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="team">
+					<figure class="team-image"><img src="/static/dummy/person-3.jpg" alt=""></figure>
+					<h2 class="team-name"></h2>
+					<small class="team-title">Reviewer</small>
+					<div class="social-links">
+						<a href="" class="facebook"><i class="fa fa-facebook"></i></a>
+						<a href="" class="twitter"><i class="fa fa-twitter"></i></a>
+						<a href="" class="google-plus"><i class="fa fa-google-plus"></i></a>
+						<a href="" class="pinterest"><i class="fa fa-pinterest"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="team">
+					<figure class="team-image"><img src="/static/dummy/person-4.jpg" alt=""></figure>
+					<h2 class="team-name"></h2>
+					<small class="team-title">Consultant</small>
+					<div class="social-links">
+						<a href="" class="facebook"><i class="fa fa-facebook"></i></a>
+						<a href="" class="twitter"><i class="fa fa-twitter"></i></a>
+						<a href="" class="google-plus"><i class="fa fa-google-plus"></i></a>
+						<a href="" class="pinterest"><i class="fa fa-pinterest"></i></a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div> <!-- .container -->
+{% endblock %}

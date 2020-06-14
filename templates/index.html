@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block currentMenuItem %}
+<div class="main-navigation">
+	<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+	<ul class="menu">
+		<li class="menu-item current-menu-item"><a href="index.html">Home</a></li>
+		<li class="menu-item"><a href="about.html">About</a></li>
+		<li class="menu-item"><a href="review.html">Movie reviews</a></li>
+		<li class="menu-item"><a href="contact.html">Contact</a></li>
+	</ul> <!-- .menu -->
+
+
+</div> <!-- .main-navigation -->
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+	<div class="page">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="slider">
+					<ul class="slides">
+						<li><a href="#"><img src="/static/dummy/slide-1.jpg" alt="Slide 1"></a></li>
+						<li><a href="#"><img src="/static/dummy/slide-2.jpg" alt="Slide 2"></a></li>
+						<li><a href="#"><img src="/static/dummy/slide-3.jpg" alt="Slide 3"></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-3 visible-sm visible-md visible-lg">
+				<div class="row">
+					<div class="col-sm-6 col-md-12">
+						<div class="latest-movie">
+							<a href="#"><img src="/static/dummy/thumb-1.jpg" alt="Movie 1"></a>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-12">
+						<div class="latest-movie">
+							<a href="#"><img src="/static/dummy/thumb-2.jpg" alt="Movie 2"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> <!-- .row -->
+		<div class="row visible-sm visible-md visible-lg">
+			<div class="col-sm-6 col-md-3">
+				<div class="latest-movie">
+					<a href="#"><img src="/static/dummy/thumb-3.jpg" alt="Movie 3"></a>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="latest-movie">
+					<a href="#"><img src="/static/dummy/thumb-4.jpg" alt="Movie 4"></a>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="latest-movie">
+					<a href="#"><img src="/static/dummy/thumb-5.jpg" alt="Movie 5"></a>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="latest-movie">
+					<a href="#"><img src="/static/dummy/thumb-6.jpg" alt="Movie 6"></a>
+				</div>
+			</div>
+		</div> <!-- .row -->
+
+		<div class="row">
+			<h2>Movie Recommendation System</h2>
+			<form id="movie_search_form">
+				<input id="moviename" class="form-control col-md-8 col-sm-8 col-xs-8" placeholder="Enter a movie name"
+					type="text">
+				<button type="button" class="btn btn-primary" id="search">Search</button>
+				
+			</form>
+			<br />
+			<div class="table-responsive">
+				<h3 id="searched" style="display:none;"></h3>
+				<h4 id="not_fond" style="display:none;"></h4>
+				<table id="response" class="table .table-hover" style="display:none;">
+					<thead class="thead-light">
+						<td style="width: 5%;">Best</td>
+						<td>Recomended Movie</td>
+					</thead>
+				</table>
+			</div>
+
+
+
+		</div>
+	</div>
+</div> <!-- .container -->
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+
+	$(document).ready(function () {
+
+
+		$("#search").click(function () {
+			var movieName = $("#moviename").val();
+			if (movieName === "" || movieName.length < 3) {
+				toastr.error("Please enter movie name min 3 chars");
+				return
+			}
+			$.ajax({
+				url: "/api/movierecommendname?name=" + encodeURIComponent(movieName),
+				success: function (data) {
+
+					if(data.length == 0 || data.length == 1 ){
+						$('#response').hide()
+						$("#not_fond").html("No Results Found ")
+						$('#not_fond').show()
+
+						$('#searched').html("Recommendations for movie : <i>" + movieName + "</i>")
+						$('#searched').show()
+						return
+					}
+
+					//console.log(data)
+					var tbl_row = "";
+					$('#response tbody tr').remove()
+					for (var i = 1; i < data.length; i++) {
+						tbl_row = "<tr><td>" + [i] + "</td><td>" + data[i] + "</td></tr>";
+						$('#response').append(tbl_row);
+					}
+
+					$('#not_fond').hide()
+					$('#searched').html("Recommendations for movie : <i>" + data[0] + "</i>")
+					$('#searched').show()
+					$('#response').show()
+				},
+				error: function (error) {
+					console.log(error)
+				}
+			});
+		});
+	})
+</script>
+{% endblock %}

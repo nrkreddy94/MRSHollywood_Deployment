@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block currentMenuItem %}
+<div class="main-navigation">
+	<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+	<ul class="menu">
+		<li class="menu-item "><a href="index.html">Home</a></li>
+		<li class="menu-item "><a href="about.html">About</a></li>
+		<li class="menu-item current-menu-item"><a href="review.html">Movie reviews</a></li>
+		<li class="menu-item "><a href="contact.html">Contact</a></li>
+	</ul> <!-- .menu -->
+
+
+</div> <!-- .main-navigation -->
+{% endblock %}
+{% block header %}
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.semanticui.min.css" rel="stylesheet" type="text/css">
+<style>
+	.dataTables_wrapper {
+		width: 98%;
+		margin-left: 2%;
+	}
+
+	.ui.form input[type=search] {
+		width: fit-content;
+	}
+
+	footer {
+		background-color: #131a20;
+		/*background-image: url(static/dummy/background.jpg);*/
+		background-position: top center;
+		background-repeat: no-repeat;
+		color: #84878d;
+		font-family: "Roboto", "Open Sans", sans-serif;
+		font-size: 15px;
+		font-weight: 400;
+		line-height: normal;
+	}
+
+	body,
+	html {
+		height: auto;
+	}
+
+	.scrollable-menu {
+		height: auto;
+		max-height: 200px;
+		overflow-x: hidden;
+	}
+
+	div.dataTables_wrapper div.dataTables_info {
+		padding-top: 13px;
+		white-space: normal;
+	}
+</style>
+
+{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="page">
+		<div class="breadcrumbs">
+			<a href="index.html">Home</a>
+			<span>Movie Review (January 01, 2008 - September 26, 2018)</span>
+		</div>
+
+		<div class="filters row">
+			<form id="movie_search_form">
+				<div class="form-group row">
+					<div class="col-sm-6">
+						<input id="moviename" class="col-xs-8" placeholder="Enter a movie name" type="text">
+						<button type="button" class="btn btn-primary" id="search">Get
+							Datails</button>
+					</div>
+					<div class="col-sm-6">
+						<select name="#" id="selectgenres" placeholder="Choose Category" class="col-xs-6">
+							<option value="">Select</option>
+							<option value="Action">Action</option>
+							<option value="Adventure">Adventure</option>
+							<option value="Animation">Animation</option>
+							<option value="Children">Children</option>
+							<option value="Comedy">Comedy</option>
+							<option value="Crime">Crime</option>
+							<option value="Drama">Drama</option>
+							<option value="Fantasy">Fantasy</option>
+							<option value="Horror">Horror</option>
+							<option value="Sci-Fi">Sci-Fi</option>
+							<option value="Romance">Romance</option>
+							<option value="No Genres">No Genres</option>
+
+						</select>
+						<select name="#" id="selectyear" class="dropdown-menu scrollable-menu" role="menu"
+							class="col-xs-6">
+							<option value="">Select</option>
+							{%for i in range(2008, 2019)%}
+							<option value="{{i}}">{{i}}</option>
+
+							{%endfor%}
+							
+						</select>
+					</div>
+				</div>
+			</form>
+
+
+		</div>
+		<div class="movie-list">
+			<table id="example" class="ui celled table" style="width:100%">
+				<thead>
+					<tr>
+						<th>Year</th>
+						<th>Movie Title</th>
+						<th>Genres</th>
+						<th>TMDB Home Page</th>
+						<th>Rating</th>
+						<th>Users</th>
+
+
+					</tr>
+				</thead>
+
+			</table>
+		</div> <!-- .movie-list -->
+
+		<div>
+			<br/>
+			<span><b>Note:</b>1900 - Unknown movie released year </span>
+		</div>
+	</div>
+</div> <!-- .container -->
+
+{% endblock %}
+{% block script %}
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.semanticui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$("#search").click(function () {
+			var movieName = $("#moviename").val();
+
+			if (movieName === "" || movieName.length < 3) {
+				toastr.error("Please enter movie name min 3 chars");
+				return
+			}
+
+			var url = "/api/moviereviewname?name=" + encodeURIComponent(movieName)
+			loadDataTable(url)
+		});
+
+		$("#selectyear").change(function () {
+			var $option = $(this).find('option:selected');
+			var year = $option.val();
+			var genres = $("#selectgenres").val()
+			var url = null
+			if (genres != "") {
+				url = "/api/moviereviewgenresyear?name=" + encodeURIComponent(genres) + "&year=" + encodeURIComponent(year)
+			} else {
+				url = "/api/moviereviewyear?year=" + encodeURIComponent(year)
+			}
+
+
+			loadDataTable(url)
+		});
+
+		$("#selectgenres").change(function () {
+			var $option = $(this).find('option:selected');
+			var genres = $option.val();
+			var year = $("#selectyear").val()
+			var url = null
+			if (year != "") {
+				url = "/api/moviereviewgenresyear?name=" + encodeURIComponent(genres) + "&year=" + encodeURIComponent(year)
+			} else {
+				url = "/api/moviereviewgenres?name=" + encodeURIComponent(genres)
+			}
+
+
+			loadDataTable(url)
+		});
+
+	});
+
+	function loadDataTable(endpoint) {
+		$('#example').dataTable().fnClearTable();
+		var table = $('#example').DataTable({
+			ajax: {
+				url: endpoint,
+				type: 'GET',
+				"dataSrc": function (data) {
+					return data;
+				}
+			},
+			"bDestroy": true,
+			"order": [[0, 'desc']],
+			"columns": [
+				{ "data": "year" },
+				{ "data": "title" },
+				{ "data": "genres" },
+				{ "data": "tmdLink" },
+				{ "data": "avg_rating" },
+				{ "data": "total_rating" }
+
+
+			],
+			"columnDefs": [
+				{
+					"targets": 0,
+					"data": "year",
+					"render": function (data, type, row, meta) {
+						return data;
+					}
+				},
+				{
+					"targets": 3,
+					"data": "tmdLink",
+					"render": function (data, type, row, meta) {
+						return '<a href="' + data + '"target="_blank" rel="noopener noreferrer"> click here</a>';
+					}
+				}, {
+					"targets": 3,
+					"data": "tmdLink",
+					"render": function (data, type, row, meta) {
+						return '<a href="' + data + '"target="_blank" rel="noopener noreferrer"> click here</a>';
+					}
+				},
+				{
+					"targets": 4,
+					"data": "avg_rating",
+					"render": function (data, type, row, meta) {
+						var value = data.toString()
+						return value.length > 3 ? value.substring(0, 3) : value;
+					}
+				}],
+			buttons: [{
+				extend: 'copyHtml5',
+				text: 'Copy Selected Rows',
+				header: false,
+				exportOptions: {
+					modifier: {
+						selected: true
+					},
+					orthogonal: 'copy'
+				}
+			}]
+
+		})
+	}
+
+</script>
+{% endblock %}
