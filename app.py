@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 movie_name_index_df=pd.read_csv("movie_user_rating_index.csv",encoding ='utf-8',compression='gzip')
 
-movie_user_rating_df=pd.read_csv("movie_user_rating_pivottable_test.csv",
+movie_user_rating_df=pd.read_csv("movie_user_rating_pivottable.csv",
                                          encoding ='utf-8',compression='gzip')
 
 move_review_final_df = pd.read_csv("move_review_final_dataset.csv",
