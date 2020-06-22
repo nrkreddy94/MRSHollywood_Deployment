@@ -1,6 +1,6 @@
 # Movie Recommendation System
 
-### Movie Recommendation System with Cosine Similiarty
+### Movie Recommendation System with Cosine Similarty
 
 URL: http://mrshollywood.herokuapp.com/index.html
 
