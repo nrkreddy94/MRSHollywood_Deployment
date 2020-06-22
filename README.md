@@ -4,9 +4,13 @@
 
 URL: http://mrshollywood.herokuapp.com/index.html
 
-Homepage | MovieReviews 
--------- | ------------ 
- ![Homepage](/webpage_home.PNG)   | ![MovieReviews](/webpage_moviereviews.PNG) 
+Homepage 
+-------- 
+![Homepage](/webpage_home.PNG)   
+
+MovieReviews 
+-------------  
+![MovieReviews](/webpage_moviereviews.PNG) 
 
 ### Life cycle of Data Science Project
 
@@ -42,5 +46,3 @@ Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. It's a pre-fork 
 [MRSHollywood_Android](https://github.com/nrkreddy94/MRSHollywood_Android )
 
 [MRSHollywood_LiveChat](https://github.com/nrkreddy94/MRSHollywood_LiveChat)
-
-
