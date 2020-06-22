@@ -6,7 +6,7 @@ URL: http://mrshollywood.herokuapp.com/index.html
 
 Homepage | MovieReviews 
 -------- | ------------ 
- ![Homepage](/webpage_home.png)   | ![MovieReviews](/webpage_moviereviews.png) 
+ ![Homepage](/webpage_home.PNG)   | ![MovieReviews](/webpage_moviereviews.PNG) 
 
 ### Life cycle of Data Science Project
 
